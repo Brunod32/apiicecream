@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}IceCream index{% endblock %}
+
+{% block body %}
+    <h1>IceCream index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Flavor</th>
+                <th>Quantity</th>
+                <th>InStock</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ice_cream in ice_creams %}
+            <tr>
+                <td>{{ ice_cream.id }}</td>
+                <td>{{ ice_cream.flavor }}</td>
+                <td>{{ ice_cream.quantity }}</td>
+                <td>{{ ice_cream.inStock ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_ice_cream_show', {'id': ice_cream.id}) }}">show</a>
+                    <a href="{{ path('app_ice_cream_edit', {'id': ice_cream.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% for ice_cream in ice_creams %}
+        {% if ice_cream.quantity > 190 %}
+        <div>
+            <p>Quantité supérieure à 190: {{ ice_cream.flavor }}</p>
+        </div>
+        {% endif %}
+    {% endfor %}
+
+    <a href="{{ path('app_ice_cream_new') }}">Create new</a>
+{% endblock %}
